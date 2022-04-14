@@ -21,7 +21,8 @@ public class Program {
         for (int i = 0; i < 11; i++) {
             for (int j = 0; j < result.length; j++) {
                 if ((int)((float)arrayOfSymbols[result[j]] / delimetr) + 1 == 11 - i) {
-                    statistics += " ";
+                    if (j > 0)
+                        statistics += " ";
                     if (arrayOfSymbols[result[j]] < 100)
                         statistics += " ";
                     if (arrayOfSymbols[result[j]] < 10)
@@ -29,13 +30,18 @@ public class Program {
                     statistics += arrayOfSymbols[result[j]];
                 }
                 if ((int)((float)arrayOfSymbols[result[j]] / delimetr) > 10 - i) {
-                    statistics += "   #";
+                    if (j > 0)
+                        statistics += " ";
+                    statistics += "  #";
                 }
             }
             statistics += "\n";
         }
-        for (int i = 0; i < result.length; i++)
-            statistics += "   " + result[i];
+        for (int i = 0; i < result.length; i++) {
+            if (i > 0)
+                statistics += " ";
+            statistics += "  " + result[i];
+        }
         System.out.println(statistics);
     }
 
