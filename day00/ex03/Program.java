@@ -29,7 +29,7 @@ public class Program {
     }
 
     private static void showStat(int count, int week) {
-        System.out.print("Week " + week + " ");
+        System.out.print("Week " + week + (week < 10 ? "  " : " "));
         for (int i = -2; i < count; i++)
             System.out.print("=");
         System.out.println(">");
