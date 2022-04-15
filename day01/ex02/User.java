@@ -11,9 +11,9 @@ public class User {
 
 	public String getName() { return this.name; }
 
-	private Integer getBalance() { return this.balance; }
+	public Integer getBalance() { return this.balance; }
 
-	private Integer getId() { return this.id; }
+	public Integer getId() { return this.id; }
 
 	public void printInfo() {
 		System.out.printf("username: %s, id: %d, balance: %d\n", name, id, balance);
