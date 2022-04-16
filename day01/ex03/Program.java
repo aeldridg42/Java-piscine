@@ -7,12 +7,12 @@ public class Program {
 		User mike = new User("Mike", 4900);
 		User nacho = new User("Nacho", -120);
 
-		Transaction transaction1 = new Transaction(kim, jimmy, Category.DEBITS, -2000);
-		Transaction transaction2 = new Transaction(kim, jimmy, Category.CREDITS, 1000);
-		Transaction transaction3 = new Transaction(mike, nacho, Category.CREDITS, 150);
-		Transaction transaction4 = new Transaction(mike, nacho, Category.DEBITS, -100);
-		Transaction transaction5 = new Transaction(kim, mike, Category.DEBITS, -240);
-		Transaction transaction6 = new Transaction(mike, jimmy, Category.CREDITS, 1000);
+		Transaction transaction1 = new Transaction(kim, jimmy, Category.OUTCOME, -2000);
+		Transaction transaction2 = new Transaction(kim, jimmy, Category.INCOME, 1000);
+		Transaction transaction3 = new Transaction(mike, nacho, Category.INCOME, 150);
+		Transaction transaction4 = new Transaction(mike, nacho, Category.OUTCOME, -100);
+		Transaction transaction5 = new Transaction(kim, mike, Category.OUTCOME, -240);
+		Transaction transaction6 = new Transaction(mike, jimmy, Category.INCOME, 1000);
 
 		TransactionsLinkedList list = new TransactionsLinkedList();
 		list.addTransaction(transaction1);

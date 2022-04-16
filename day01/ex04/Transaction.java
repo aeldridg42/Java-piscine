@@ -19,6 +19,13 @@ public class Transaction {
 		this.amount = setAmount(amount);
 	}
 
+	public Transaction(Transaction transaction) {
+		identifier = transaction.getIdentifier();
+		this.recipient = transaction.sender;
+		this.sender = transaction.recipient;
+		this.category = Category.INCOME;
+		this.amount = transaction.amount * -1;
+	}
 	private Integer setAmount(Integer amount) {
 		if (category == Category.OUTCOME)
 			return amount <= 0 ? amount : 0;
@@ -36,7 +43,7 @@ public class Transaction {
 	public Integer getAmount() { return amount; }
 
 	public void printInfo() {
-		System.out.printf("recipient: %s, sender: %s, category: %s, amount: %d, transaction id: %s\n",
-				recipient.getName(), sender.getName(), category, amount, identifier.toString());
+		System.out.printf("sender: %s, recipient: %s, category: %s, amount: %d, transaction id: %s\n",
+				sender.getName(), recipient.getName(), category, amount, identifier.toString());
 	}
 }

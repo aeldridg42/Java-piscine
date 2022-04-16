@@ -1,7 +1,7 @@
 import java.util.UUID;
 
 enum Category {
-	DEBITS, CREDITS;
+	OUTCOME, INCOME;
 }
 
 public class Transaction {
@@ -11,7 +11,7 @@ public class Transaction {
 	private Category category;
 	private Integer amount;
 
-	public Transaction(User recipient, User sender, Category category, Integer amount) {
+	public Transaction(User sender, User recipient, Category category, Integer amount) {
 		identifier = UUID.randomUUID();
 		this.recipient = recipient;
 		this.sender = sender;
@@ -20,7 +20,7 @@ public class Transaction {
 	}
 
 	private Integer setAmount(Integer amount) {
-		if (category == Category.DEBITS)
+		if (category == Category.OUTCOME)
 			return amount <= 0 ? amount : 0;
 		return amount >= 0 ? amount : 0;
 	}
