@@ -6,7 +6,7 @@ class TransactionNotFoundException extends RuntimeException {
 	}
 }
 
-public interface TransactionsListinterface {
+public interface TransactionsList {
 	public void addTransaction(Transaction transaction);
 
 	public void remove(UUID uuid) throws TransactionNotFoundException;

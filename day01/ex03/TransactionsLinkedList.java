@@ -1,6 +1,6 @@
 import java.util.UUID;
 
-public class TransactionsLinkedList implements TransactionsListinterface {
+public class TransactionsLinkedList implements TransactionsList {
 	private Node head;
 	private Node tail;
 	private Integer listSize;
