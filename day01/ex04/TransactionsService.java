@@ -46,8 +46,16 @@ public class TransactionsService {
         users.retrieveUserByID(userId).removeTransaction(trId);
     }
 
-    public Transaction[] getTransactionsArray() {
-        return transactions.toArray();
+    public Transaction[] unpairedTransactionsArray() {
+        Transaction[] arrayT = transactions.toArray();
+        TransactionsLinkedList result = new TransactionsLinkedList();
+        for (Transaction t : arrayT) {
+            User u1 = t.getRecipient();
+            User u2 = t.getSender();
+            if (!u1.isTransactionInList(t.getIdentifier()) || !u2.isTransactionInList(t.getIdentifier()))
+                result.addTransaction(t);
+        }
+        return result.toArray();
     }
 
 }

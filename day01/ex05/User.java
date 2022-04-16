@@ -27,10 +27,6 @@ public class User {
 		transactions.remove(uuid);
 	}
 
-	public Transaction[] getTransactions() {
-		return transactions.toArray();
-	}
-
 	public boolean isTransactionInList(UUID uuid) {
 		Transaction[] array = transactions.toArray();
 		for (Transaction t : array) {
@@ -38,6 +34,19 @@ public class User {
 				return true;
 		}
 		return false;
+	}
+
+	public Transaction getTransaction(UUID uuid) {
+		Transaction[] array = transactions.toArray();
+		for (Transaction t : array) {
+			if (t.getIdentifier().equals(uuid))
+				return t;
+		}
+		throw new TransactionNotFoundException();
+	}
+
+	public Transaction[] getTransactions() {
+		return transactions.toArray();
 	}
 
 	public void changeBalance(Integer amount) { this.balance += amount; }
