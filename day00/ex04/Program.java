@@ -17,32 +17,31 @@ public class Program {
 		if (result.length == 0)
 			return;
 		float delimetr = (float)arrayOfSymbols[result[0]] / 10;
-		String statistics = "";
 		for (int i = 0; i < 11; i++) {
 			for (int j = 0; j < result.length; j++) {
 				if ((int)((float)arrayOfSymbols[result[j]] / delimetr) + 1 == 11 - i) {
 					if (j > 0)
-						statistics += " ";
+						System.out.print(" ");
 					if (arrayOfSymbols[result[j]] < 100)
-						statistics += " ";
+						System.out.print(" ");
 					if (arrayOfSymbols[result[j]] < 10)
-						statistics += " ";
-					statistics += arrayOfSymbols[result[j]];
+						System.out.print(" ");
+					System.out.print(arrayOfSymbols[result[j]]);
 				}
 				if ((int)((float)arrayOfSymbols[result[j]] / delimetr) > 10 - i) {
 					if (j > 0)
-						statistics += " ";
-					statistics += "  #";
+						System.out.print(" ");
+					System.out.print("  #");
 				}
 			}
-			statistics += "\n";
+			System.out.println();;
 		}
 		for (int i = 0; i < result.length; i++) {
 			if (i > 0)
-				statistics += " ";
-			statistics += "  " + result[i];
+				System.out.print(" ");
+			System.out.print("  " + result[i]);
 		}
-		System.out.println(statistics);
+		System.out.println();
 	}
 
 	private static short[] fillArray(String line) {
