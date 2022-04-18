@@ -7,15 +7,26 @@ public class Program {
 		long weeksStorage = 0;
 		int weekOrder = 0;
 		String string;
-
-		while (!(string = scanner.nextLine()).equals("42")) {
-			if (!string.equals("Week " + ++weekOrder))
+		
+		while (!(string = scanner.nextLine()).equals("42") && weekOrder < 18) {
+			if (!string.equals("Week " + ++weekOrder)) {
+				scanner.close();
 				System.exit(illegalArgument());
-			long grades = 0;
-			for (int i = 0; i < 5; i++)
-				grades += scanner.nextInt();
+			}
+			long grades = 10;
+			for (int i = 0; i < 5; i++) {
+				if (scanner.hasNextInt()) {
+					scanner.close();
+					System.exit(illegalArgument());
+				}
+				int tmp = scanner.nextInt();
+				if (tmp < 1 || tmp > 9) {
+					scanner.close();
+					System.exit(illegalArgument());
+				}
+				grades = tmp < grades ? tmp : grades;
+			}
 			scanner.nextLine();
-			grades /= 5;
 			for (int i = 0; i < weekOrder - 1; i++)
 				grades *= 10;
 			weeksStorage += grades;
@@ -24,25 +35,16 @@ public class Program {
 		long tmp = weeksStorage;
 
 		for (int i = 1; tmp > 0; tmp /= 10, i++)
-			showStat(countStat(weeksStorage, (int) (tmp % 10)), i);
-
+			showStat((int) (tmp % 10), i);
+		
+		scanner.close();
 	}
 
 	private static void showStat(int count, int week) {
 		System.out.print("Week " + week + (week < 10 ? "  " : " "));
-		for (int i = -2; i < count; i++)
+		for (int i = 0; i < count; i++)
 			System.out.print("=");
 		System.out.println(">");
-	}
-
-	private static int countStat(long storage, int value) {
-		int count = 0;
-		while (storage > 0) {
-			if (storage % 10 < value)
-				count++;
-			storage /= 10;
-		}
-		return count;
 	}
 
 	private static int illegalArgument() {

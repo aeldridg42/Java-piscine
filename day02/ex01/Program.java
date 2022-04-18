@@ -23,19 +23,8 @@ public class Program {
 		String[] textArr1 = text1.split(" ");
 		String[] textArr2 = text2.split(" ");
 
-		for (String string : textArr1) {
-			if (map1.containsKey(string))
-				map1.put(string, map1.get(string) + 1);
-			else
-				map1.put(string, 1);
-		}
-
-		for (String string : textArr2) {
-			if (map2.containsKey(string))
-				map2.put(string, map2.get(string) + 1);
-			else
-				map2.put(string, 1);
-		}
+		fillMap(textArr1, map1);
+		fillMap(textArr2, map2);
 
 		Set<String> set = new TreeSet<>(map1.keySet());
 		set.addAll(map2.keySet());
@@ -58,5 +47,14 @@ public class Program {
 		}
 
 		System.out.printf("Similarity = %.2f\n", numerator / (Math.sqrt(numA) * Math.sqrt(numB)));
+	}
+
+	private static void fillMap(String[] strings, Map<String, Integer> map) {
+		for (String string : strings) {
+			if (map.containsKey(string))
+				map.put(string, map.get(string) + 1);
+			else
+				map.put(string, 1);
+		}
 	}
 }
