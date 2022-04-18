@@ -15,12 +15,13 @@ public class Program {
 			}
 			long grades = 10;
 			for (int i = 0; i < 5; i++) {
-				if (scanner.hasNextInt()) {
+				if (!scanner.hasNextInt()) {
 					scanner.close();
 					System.exit(illegalArgument());
 				}
 				int tmp = scanner.nextInt();
 				if (tmp < 1 || tmp > 9) {
+					System.out.println("?");
 					scanner.close();
 					System.exit(illegalArgument());
 				}
