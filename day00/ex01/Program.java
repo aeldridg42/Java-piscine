@@ -10,7 +10,7 @@ public class Program {
 		if (number < 2)
 			System.exit(illegalArgument());
 
-		for (; operations * operations <= number || number + 1 < 4; operations++) {
+		for (; operations * operations <= number || number < 4; operations++) {
 			if (number % operations == 0) {
 				result = false;
 				break;
