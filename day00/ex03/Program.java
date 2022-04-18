@@ -21,7 +21,6 @@ public class Program {
 				}
 				int tmp = scanner.nextInt();
 				if (tmp < 1 || tmp > 9) {
-					System.out.println("?");
 					scanner.close();
 					System.exit(illegalArgument());
 				}

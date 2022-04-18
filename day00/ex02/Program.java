@@ -9,7 +9,7 @@ public class Program {
 			if (isPrime(tmp))
 				coffeeCounter++;
 		System.out.println("Count of coffee-request – " + coffeeCounter);
-        scanner.close();
+		scanner.close();
 	}
 
 	private static boolean isPrime(int input) {
