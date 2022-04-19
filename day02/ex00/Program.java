@@ -36,6 +36,7 @@ public class Program {
 						break;
 					}
 				}
+                fis.close();
 				if (flag) continue;
 			}
 			System.out.println("UNDEFINED");

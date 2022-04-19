@@ -10,26 +10,36 @@ public class Transaction {
 	private User sender;
 	private Category category;
 	private Integer amount;
+    private boolean success;
 
-	public Transaction(User sender, User recipient, Category category, Integer amount) {
+    public Transaction(User sender, User recipient, Integer amount) {
 		identifier = UUID.randomUUID();
 		this.recipient = recipient;
 		this.sender = sender;
-		this.category = category;
-		this.amount = setAmount(amount);
+		category = Category.INCOME;
+		if (amount > 0)
+			category = Category.OUTCOME;
+		this.amount = amount;
+		if (category == Category.OUTCOME) {
+			if (sender.getBalance() - amount >= 0)
+				success = true;
+		}
+		else {
+			if (recipient.getBalance() + amount >= 0)
+				success = true;
+		}
+		if (success) {
+			this.sender.changeBalance(-amount);
+			this.recipient.changeBalance(amount);
+		}
 	}
 
 	public Transaction(Transaction transaction) {
 		identifier = transaction.getIdentifier();
 		this.recipient = transaction.sender;
 		this.sender = transaction.recipient;
-		this.category = Category.INCOME;
+		this.category = transaction.category == Category.INCOME ? Category.OUTCOME : Category.INCOME;
 		this.amount = transaction.amount * -1;
-	}
-	private Integer setAmount(Integer amount) {
-		if (category == Category.OUTCOME)
-			return amount <= 0 ? amount : 0;
-		return amount >= 0 ? amount : 0;
 	}
 
 	public UUID getIdentifier() { return identifier; }

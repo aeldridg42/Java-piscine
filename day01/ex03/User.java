@@ -23,6 +23,8 @@ public class User {
 		transactions.addTransaction(transaction);
 	}
 
+    public void changeBalance(int value) { balance += value; }
+
 	public void removeTransaction(UUID uuid) throws TransactionNotFoundException {
 		transactions.remove(uuid);
 	}
