@@ -9,6 +9,7 @@ public class Program {
 		}
 		BufferedReader br1 = new BufferedReader(new FileReader(args[0]));
 		BufferedReader br2 = new BufferedReader(new FileReader(args[1]));
+        BufferedWriter bw = new BufferedWriter(new FileWriter("dictionary.txt"));
 
 		Map<String, Integer> map1 = new HashMap<>();
 		Map<String, Integer> map2 = new HashMap<>();

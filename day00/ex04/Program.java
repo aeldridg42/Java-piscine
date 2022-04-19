@@ -17,15 +17,28 @@ public class Program {
 		float delimetr = (float)arrayOfSymbols[result[0]] / 10;
 		for (int i = 0; i < 11; i++) {
 			for (int j = 0; j < result.length; j++) {
-				if ((int)((float)arrayOfSymbols[result[j]] / delimetr) == 10 - i)
-					System.out.printf("%4s", arrayOfSymbols[result[j]]);
-				if ((int)((float)arrayOfSymbols[result[j]] / delimetr) > 10 - i)
-					System.out.print("    #");
+				if ((int)((float)arrayOfSymbols[result[j]] / delimetr) == 10 - i) {
+					if (j > 0)
+						System.out.print(" ");
+					if (arrayOfSymbols[result[j]] < 100)
+						System.out.print(" ");
+					if (arrayOfSymbols[result[j]] < 10)
+						System.out.print(" ");
+					System.out.print(arrayOfSymbols[result[j]]);
+				}
+				if ((int)((float)arrayOfSymbols[result[j]] / delimetr) > 10 - i) {
+					if (j > 0)
+						System.out.print(" ");
+					System.out.print("  #");
+				}
 			}
 			System.out.println();;
 		}
-		for (int i = 0; i < result.length; i++)
-			System.out.printf("%4s", result[i]);
+		for (int i = 0; i < result.length; i++) {
+			if (i > 0)
+				System.out.print(" ");
+			System.out.print("  " + result[i]);
+		}
 		System.out.println();
 	}
 

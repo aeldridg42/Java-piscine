@@ -26,8 +26,7 @@ public class Program {
 				FileInputStream fis = new FileInputStream(file);
 				String result = "";
 				for (int i = 0; i < maxSignSize && fis.available() > 0; i++)
-					result += toHex(fis.read());
-				System.out.println(result);
+					result += Integer.toHexString(fis.read()).toUpperCase();
 				for (String key : map.keySet()) {
 					if (result.startsWith(key)) {
 						System.out.println("PROCESSED");
@@ -41,19 +40,5 @@ public class Program {
 			}
 			System.out.println("UNDEFINED");
 		}
-	}
-
-	private static String toHex(Integer value) {
-		String result = "";
-		int tmp = value / 16;
-		if (tmp % 16 > 9)
-			result += (char)(55 + tmp % 16);
-		else
-			result += (char)(48 + tmp % 16);
-		if (value % 16 > 9)
-			result += (char)(55 + value % 16);
-		else
-			result += (char)(48 + value % 16);
-		return result;
 	}
 }
