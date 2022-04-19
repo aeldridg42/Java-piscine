@@ -8,7 +8,7 @@ public class Program {
 		int weekOrder = 0;
 		String string;
 		
-		while (!(string = scanner.nextLine()).equals("42") && weekOrder < 18) {
+		while (weekOrder < 18 && !(string = scanner.nextLine()).equals("42")) {
 			if (!string.equals("Week " + ++weekOrder)) {
 				scanner.close();
 				System.exit(illegalArgument());

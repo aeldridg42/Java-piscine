@@ -6,8 +6,6 @@ public class Program {
 		Scanner scanner = new Scanner(System.in);
 		String line = scanner.nextLine();
 		scanner.close();
-		if (line.length() > 999)
-			System.exit(illegalArgument());
 		short[] arrayOfSymbols = fillArray(line);
 		char[] result = getResult(arrayOfSymbols);
 		showStatistics(result, arrayOfSymbols);
@@ -47,8 +45,10 @@ public class Program {
 	private static short[] fillArray(String line) {
 		short[] result = new short[65536];
 		char[] lineArray = line.toCharArray();
-		for (int i = 0; i < lineArray.length; i++)
-			result[lineArray[i]]++;
+		for (int i = 0; i < lineArray.length; i++) {
+			if (result[lineArray[i]] < 999)
+				result[lineArray[i]]++;
+		}
 		return result;
 	}
 
@@ -86,10 +86,5 @@ public class Program {
 		for (int k = 9; k > j; k--)
 			result[k] = result[k - 1];
 		result[j] = (char) i;
-	}
-
-	private static int illegalArgument() {
-		System.err.println("wrong number of symbols");
-		return -1;
 	}
 }

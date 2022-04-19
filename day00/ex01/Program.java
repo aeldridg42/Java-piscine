@@ -3,20 +3,20 @@ import java.util.Scanner;
 public class Program {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-        if (!scanner.hasNextInt()) {
-            scanner.close();
-            System.exit(illegalArgument());
-        }
-        int number = scanner.nextInt();
+		if (!scanner.hasNextInt()) {
+			scanner.close();
+			System.exit(illegalArgument());
+		}
+		int number = scanner.nextInt();
 		int operations = 2;
 		boolean result = true;
 
 		if (number < 2) {
-            scanner.close();
+			scanner.close();
 			System.exit(illegalArgument());
-        }
+		}
 
-		for (; operations * operations <= number || number < 4; operations++) {
+		for (; operations * operations <= number; operations++) {
 			if (number % operations == 0) {
 				result = false;
 				break;
@@ -24,7 +24,7 @@ public class Program {
 		}
 
 		System.out.println(result + " " + --operations);
-        scanner.close();
+		scanner.close();
 	}
 
 	private static int illegalArgument() {
