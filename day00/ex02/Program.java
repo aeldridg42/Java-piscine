@@ -19,7 +19,7 @@ public class Program {
 			number += input % 10;
 			input /= 10;
 		}
-		for (int i = 2; i * i <= number || number + 1 < 5; i++)
+		for (int i = 2; i * i <= number; i++)
 			if (number % i == 0)
 				return false;
 		return true;

@@ -7,12 +7,16 @@ public class Program {
     private static String currentPath;
 
     public static void main(String[] args) throws IOException {
-        if (args.length != 1 || !args[0].startsWith("--current-folder="))
+        if (args.length != 1 || !args[0].startsWith("--current-folder=")) {
+            System.err.println("usage: Program --current-folder=FOLDERNAME");
             return;
+        }
         currentPath = args[0].substring("--current-folder=".length());
         Path path = Paths.get(currentPath);
-        if (!path.isAbsolute() || Files.notExists(path) || !Files.isDirectory(path))
+        if (!path.isAbsolute() || Files.notExists(path) || !Files.isDirectory(path)) {
+            System.err.println("Wrong current folder");
             return;
+        }
         System.out.println(currentPath);
         Scanner s = new Scanner(System.in);
         String command = "";
@@ -52,19 +56,19 @@ public class Program {
 
     private static void functionMV(String[] strings) {
         if (strings.length != 3) {
-            System.out.println("usage: mv thingToMove destination");
+            System.err.println("usage: mv thingToMove destination");
             return;
         }
         Path toMove = Paths.get(strings[1]);
         if (toMove.isAbsolute()) {
             if (Files.notExists(toMove)) {
-                System.out.println(strings[1] + " doesn't exists");
+                System.err.println(strings[1] + " doesn't exists");
                 return;
             }
         }
         else {
             if (Files.notExists(Paths.get(currentPath + strings[1]))) {
-                System.out.println(strings[1] + " doesn't exists");
+                System.err.println(strings[1] + " doesn't exists");
                 return;
             }
             toMove = Paths.get(currentPath + strings[1]);
@@ -80,7 +84,7 @@ public class Program {
         try {
             Files.move(toMove, whereTo, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            System.out.println("Something went wrong");
+            System.err.println("Something went wrong");
             System.exit(-1);
         }
     }
@@ -90,13 +94,14 @@ public class Program {
             System.out.println("usage: cd destination");
             return;
         }
-        if (Paths.get(strings[1]).isAbsolute())
+        if (Paths.get(strings[1]).isAbsolute() && Files.isDirectory(Paths.get(strings[1])))
             currentPath = strings[1];
         else {
-            if (Files.exists(Paths.get(currentPath + strings[1])))
+            if (Files.exists(Paths.get(currentPath + strings[1])) &&
+                    Files.isDirectory(Paths.get(currentPath + strings[1])))
                 currentPath += strings[1];
             else {
-                System.out.println("wrong destination");
+                System.err.println("wrong destination");
                 return;
             }
         }
