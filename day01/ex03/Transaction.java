@@ -19,7 +19,7 @@ public class Transaction {
 		category = Category.INCOME;
 		if (amount > 0)
 			category = Category.OUTCOME;
-		this.amount = amount;
+		this.amount = -amount;
 		if (category == Category.OUTCOME) {
 			if (sender.getBalance() - amount >= 0)
 				success = true;

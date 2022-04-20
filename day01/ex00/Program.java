@@ -15,6 +15,8 @@ public class Program {
 		jimmy.printInfo();
 		Transaction transaction2 = new Transaction(kim, jimmy, 10000);
 		transaction2.printInfo();
+		Transaction transaction3 = new Transaction(kim, jimmy, 1100);
+		transaction3.printInfo();
 		kim.printInfo();
 		jimmy.printInfo();
 	}

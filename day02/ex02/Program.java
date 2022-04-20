@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.Scanner;
@@ -6,7 +5,7 @@ import java.util.Scanner;
 public class Program {
     private static String currentPath;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         if (args.length != 1 || !args[0].startsWith("--current-folder=")) {
             System.err.println("usage: Program --current-folder=FOLDERNAME");
             return;
@@ -35,8 +34,7 @@ public class Program {
                     functionCD(strings);
                     break;
                 default:
-                    System.err.println("wrong command name");
-                    System.exit(-1);
+                    System.err.println("you can use <ls>, <cd> or <mv> only");
             }
         }
     }
@@ -50,6 +48,7 @@ public class Program {
                 }
             }
         } catch (IOException e) {
+            System.err.println("don't have access to this folder");
             System.exit(-1);
         }
     }
@@ -62,21 +61,20 @@ public class Program {
         Path toMove = Paths.get(strings[1]);
         if (toMove.isAbsolute()) {
             if (Files.notExists(toMove)) {
-                System.err.println(strings[1] + " doesn't exists");
+                System.err.println("mv: " + strings[1] + ": no such file or directory");
                 return;
             }
         }
         else {
             if (Files.notExists(Paths.get(currentPath + strings[1]))) {
-                System.err.println(strings[1] + " doesn't exists");
+                System.err.println("mv: " + strings[1] + ": no such file or directory");
                 return;
             }
             toMove = Paths.get(currentPath + strings[1]);
         }
         Path whereTo = Paths.get(currentPath + strings[2]);
-        if (Files.exists(whereTo) && Files.isDirectory(whereTo) && whereTo.isAbsolute()) {
+        if (Files.exists(whereTo) && Files.isDirectory(whereTo) && whereTo.isAbsolute())
             whereTo = Paths.get(currentPath + strings[2] + "/" + toMove.getFileName());
-        }
         else if (Paths.get(strings[2]).isAbsolute())
             whereTo = Paths.get(strings[2] + "/" + toMove.getFileName());
         else
@@ -84,8 +82,7 @@ public class Program {
         try {
             Files.move(toMove, whereTo, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            System.err.println("Something went wrong");
-            System.exit(-1);
+            System.err.println("mv: Permission denied");
         }
     }
 
@@ -94,14 +91,16 @@ public class Program {
             System.out.println("usage: cd destination");
             return;
         }
-        if (Paths.get(strings[1]).isAbsolute() && Files.isDirectory(Paths.get(strings[1])))
+        if (Paths.get(strings[1]).isAbsolute() && Files.isDirectory(Paths.get(strings[1]))
+                && Files.isReadable(Paths.get(strings[1])))
             currentPath = strings[1];
         else {
             if (Files.exists(Paths.get(currentPath + strings[1])) &&
-                    Files.isDirectory(Paths.get(currentPath + strings[1])))
+                    Files.isDirectory(Paths.get(currentPath + strings[1])) &&
+                    Files.isReadable(Paths.get(currentPath + strings[1])))
                 currentPath += strings[1];
             else {
-                System.err.println("wrong destination");
+                System.out.println("cd: wrong directory: " + strings[1]);
                 return;
             }
         }

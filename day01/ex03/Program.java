@@ -48,12 +48,9 @@ public class Program {
 			array[i].printInfo();
 		System.out.println("\n\n");
 
-		try {
-			list.remove(UUID.randomUUID());
-		} catch (RuntimeException e) {
-			System.err.println(e);
-		}
 
+		if (false)
+			list.remove(UUID.randomUUID());
 
 	}
 
