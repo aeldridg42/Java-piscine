@@ -14,10 +14,12 @@ public class FileParser {
 
 		while (br.ready()) {
 			url = br.readLine();
+			if (!url.contains("http"))
+				throw new IOException();
 			url = url.substring(url.indexOf("http"));
 			Program.queue.add(url);
 			Program.map.put(url, ++i);
 		}
-        br.close();
+		br.close();
 	}
 }

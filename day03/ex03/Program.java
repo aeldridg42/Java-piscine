@@ -6,7 +6,7 @@ public class Program {
 	public static LinkedBlockingQueue<String> queue = new LinkedBlockingQueue<String>();
 	public static Map<String, Integer> map = new HashMap<>();
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		int number = 0;
 
 		if (args.length != 1 || !args[0].startsWith("--threadsCount=")) {
@@ -22,11 +22,15 @@ public class Program {
 		if (number < 1)
 			System.exit(exitMessage("please use positive amount of threads"));
 
-		FileParser.parse();
+		try {
+			FileParser.parse();
+		} catch (IOException e) {
+			System.exit(exitMessage("File parse error"));
+		}
+
 		ExecutorService executorService = Executors.newFixedThreadPool(number);
 
-		int i = 0;
-		while (i < queue.size()) {
+		while (queue.size() > 0) {
 			executorService.submit(new Runner());
 		}
 		executorService.shutdown();
