@@ -1,5 +1,5 @@
 public class UserIdsGenerator {
-	private static Integer id = 1;
+	private Integer id = 1;
 	private static UserIdsGenerator instance;
 
 	private UserIdsGenerator() {}

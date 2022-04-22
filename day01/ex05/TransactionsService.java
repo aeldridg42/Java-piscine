@@ -1,5 +1,7 @@
 import java.util.UUID;
 
+import javax.management.openmbean.OpenDataException;
+
 class IllegalTransactionException extends RuntimeException {
 	public String toString() {
 		return "illegal transaction attempt";
@@ -32,12 +34,13 @@ public class TransactionsService {
 	}
 
 	public void transfer(Integer id1, Integer id2, Integer amount) throws IllegalTransactionException, UserNotFoundException {
-		User sender = users.retrieveUserByID(amount > 0 ? id1 : id2);
-		User recipient = users.retrieveUserByID(amount > 0 ? id2 : id1);
-		Transaction tr1 = new Transaction(sender, recipient, Category.OUTCOME, amount < 0 ? amount : -amount);
+		if (id1 == id2 || amount < 0)
+			throw new IllegalTransactionException();
+		User sender = users.retrieveUserByID(id1);
+		User recipient = users.retrieveUserByID(id2);
+		Transaction tr1 = new Transaction(sender, recipient, Category.OUTCOME, amount);
 		Transaction tr2 = new Transaction(tr1);
-		transactions.addTransaction(amount < 0 ? tr1 : tr2);
-		amount = amount < 0 ? -amount : amount;
+		transactions.addTransaction(tr1);
 		if (sender.getBalance() - amount < 0)
 			throw new IllegalTransactionException();
 		sender.changeBalance(-amount);

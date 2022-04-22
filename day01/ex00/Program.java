@@ -6,16 +6,16 @@ public class Program {
 		kim.printInfo();
 		jimmy.printInfo();
 
-		Transaction transaction1 = new Transaction(kim, jimmy, -2000);
+		Transaction transaction1 = new Transaction(kim, jimmy, Category.OUTCOME, 2000);
 
 		kim.printInfo();
 		jimmy.printInfo();
 		transaction1.printInfo();
 		kim.printInfo();
 		jimmy.printInfo();
-		Transaction transaction2 = new Transaction(kim, jimmy, 10000);
+		Transaction transaction2 = new Transaction(kim, jimmy, Category.INCOME, -10000);
 		transaction2.printInfo();
-		Transaction transaction3 = new Transaction(kim, jimmy, 1100);
+		Transaction transaction3 = new Transaction(kim, jimmy, Category.INCOME, -1100);
 		transaction3.printInfo();
 		kim.printInfo();
 		jimmy.printInfo();

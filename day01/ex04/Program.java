@@ -15,7 +15,7 @@ public class Program {
 		System.out.println("\n");
 		System.out.println("Mike before: " + service.retrieveBalance(3));
 		System.out.println("Nacho before: " + service.retrieveBalance(4));
-		service.transfer(3, 4, -100);
+		service.transfer(3, 4, 100);
 		System.out.println("Mike after: " + service.retrieveBalance(3));
 		System.out.println("Nacho after: " + service.retrieveBalance(4));
 

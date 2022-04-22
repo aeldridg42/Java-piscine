@@ -28,17 +28,31 @@ public class Menu {
 		while (true) {
 			printMessage(MODE);
 			try {
+				if (!scanner.hasNextInt())
+				{
+					System.out.println("Please enter number between 1 and " + (MODE ? 7 : 5));
+					System.out.println("---------------------------------------------------------");
+					scanner.nextLine();
+					continue;
+				}
 				input = scanner.nextInt();
 				scanner.nextLine();
 				if (input < 1 || input > (MODE ? 7 : 5)) {
 					System.out.println("Please enter number between 1 and " + (MODE ? 7 : 5));
 					System.out.println("---------------------------------------------------------");
+					scanner.nextLine();
 					continue;
 				}
 				switch (input) {
 					case 1:
 						System.out.print("Enter a user name and a balance\n-> ");
-						service.addUser(new User(scanner.next(), scanner.nextInt()));
+						try {
+							service.addUser(new User(scanner.next(), scanner.nextInt()));
+						} catch (RuntimeException e) {
+							System.out.println("Add a user operation is failed.");
+							scanner.nextLine();
+							break;
+						}
 						System.out.printf("User with id = %d is added\n", service.retrieveNumberOfUsers());
 						break;
 					case 2:
@@ -66,6 +80,8 @@ public class Menu {
 						System.out.print("Enter a user ID\n-> ");
 						try {
 							Transaction[] transactions = service.getUsersTransactions(scanner.nextInt());
+							if (transactions.length == 0)
+								System.out.println("Transactions list is empty");
 							for (Transaction t : transactions)
 								t.printInfo();
 						} catch (UserNotFoundException e) {
@@ -115,6 +131,7 @@ public class Menu {
 				}
 			}
 			catch (Exception e) {
+				System.out.println(e);
 				System.out.println("Something went wrong. Please try again");
 				break;
 			}
