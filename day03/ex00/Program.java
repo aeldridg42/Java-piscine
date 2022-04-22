@@ -1,32 +1,33 @@
 public class Program {
-    public static void main(String[] args) {
-        if (args.length != 1 && !args[0].startsWith("--count=")) {
-            System.err.println("usage: java Program --count=<number>");
-            System.exit(-1);
-        }
+	public static void main(String[] args) {
+		int count = 0;
 
-        int count = 0;
-        try {
-            count = Integer.parseInt(args[0].substring(8));
-        } catch (NumberFormatException e) {
-            System.err.println("usage: java Program --count=<number>");
-            System.exit(-1);
-        }
+		if (args.length != 1 && !args[0].startsWith("--count=")) {
+			System.err.println("usage: java Program --count=<number>");
+			System.exit(-1);
+		}
 
-        Thread Egg = new Thread(new Runner("Egg", count));
-        Thread Hen = new Thread(new Runner("Hen", count));
+		try {
+			count = Integer.parseInt(args[0].substring(8));
+		} catch (NumberFormatException e) {
+			System.err.println("usage: java Program --count=<number>");
+			System.exit(-1);
+		}
 
-        Egg.start();
-        Hen.start();
+		Thread Egg = new Thread(new Runner("Egg", count));
+		Thread Hen = new Thread(new Runner("Hen", count));
 
-        for (int i = 0; i < count; i++)
-            System.out.println("Human");
-        
-        try {
-            Egg.join();
-            Hen.join();
-        } catch (InterruptedException e) {
-            System.out.println(e);
-        }
-    }
+		Egg.start();
+		Hen.start();
+		
+		try {
+			Egg.join();
+			Hen.join();
+		} catch (InterruptedException e) {
+			System.out.println(e);
+		}
+
+		for (int i = 0; i < count; i++)
+			System.out.println("Human");
+	}
 }
