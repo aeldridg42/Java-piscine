@@ -14,6 +14,5 @@ cp -R src/resources target/.
 jar cfm ./target/images-to-char-printer.jar src/manifest.txt -C target .
 chmod u+x target/images-to-char-printer.jar
 
-# launch program with args - white char, black char, path to the image
-java -classpath target edu.school21.printer.app.Program . 0 /Users/aeldridg/Downloads/1.bmp
-
+# launch program with args - white char, black char
+java -classpath target edu.school21.printer.app.Program . 0
