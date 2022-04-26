@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Objects;
 
 public class Chatroom {
-    private Integer id;
+    private Long id;
     private String name;
     private User owner;
     List<Message> messageList;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -36,7 +36,7 @@ public class Chatroom {
         return Objects.hash(id, name, owner, messageList);
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -64,7 +64,7 @@ public class Chatroom {
         this.messageList = messageList;
     }
 
-    public Chatroom(Integer id, String name, User owner, List<Message> messageList) {
+    public Chatroom(Long id, String name, User owner, List<Message> messageList) {
         this.id = id;
         this.name = name;
         this.owner = owner;

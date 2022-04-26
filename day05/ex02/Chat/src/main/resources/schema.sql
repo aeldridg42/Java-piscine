@@ -1,6 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS chat;
 
-DROP TABLE IF EXISTS chat.messages, chat.room, chat.users;
+DROP TABLE IF EXISTS chat.messages, chat.room, chat.users, Chat.users_in_rooms CASCADE;
 
 CREATE TABLE IF NOT EXISTS chat.users (
         id          SERIAL PRIMARY KEY,

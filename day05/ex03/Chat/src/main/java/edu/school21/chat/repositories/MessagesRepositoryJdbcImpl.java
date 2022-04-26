@@ -3,14 +3,11 @@ package edu.school21.chat.repositories;
 import com.zaxxer.hikari.HikariDataSource;
 import edu.school21.chat.models.*;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-public class MessagesRepositoryJdbcImpl implements MessagesRepository{
+public class MessagesRepositoryJdbcImpl implements MessagesRepository {
     private final HikariDataSource ds;
 
     public MessagesRepositoryJdbcImpl(HikariDataSource ds) {
@@ -28,7 +25,7 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository{
         long roomId = 0L;
 
         try ( Connection connection = ds.getConnection();
-            Statement statement = connection.createStatement()) {
+              Statement statement = connection.createStatement()) {
             String request = "SELECT * FROM chat.messages WHERE id = " + id;
             ResultSet resultSet = statement.executeQuery(request);
             if (!resultSet.next())
@@ -53,7 +50,38 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository{
         } catch (SQLException e) {
             throw new RuntimeException();
         }
-
         return opMessage;
     }
+
+    @Override
+    public void save(Message message) {
+        String request = String.format("INSERT INTO chat.messages (sender, room_id, message) VALUES " +
+                "(%o, %o, '%s');", message.getAuthor().getId(), message.getRoom().getId(), message.getText());
+        try (Connection connection = ds.getConnection();
+             PreparedStatement statement = connection.prepareStatement(request,Statement.RETURN_GENERATED_KEYS)) {
+            statement.execute();
+
+            ResultSet key = statement.getGeneratedKeys();
+            key.next();
+            message.setId(key.getLong(1));
+        }
+        catch (SQLException e) {
+            throw new NotSavedSubEntityException();
+        }
+    }
+
+    @Override
+    public void update(Message message) {
+        String request = String.format("UPDATE chat.messages SET sender = %o, room_id = %o, message = '%s'" +
+                " WHERE id = %d;", message.getAuthor().getId(), message.getRoom().getId(), message.getText(), message.getId());
+        try (Connection connection = ds.getConnection();
+            Statement statement = connection.createStatement()) {
+            statement.execute(request);
+        } catch (SQLException e) {
+            throw new NotSavedSubEntityException();
+        }
+
+    }
+
+
 }

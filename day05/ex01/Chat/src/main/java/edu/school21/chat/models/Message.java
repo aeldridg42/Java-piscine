@@ -1,16 +1,17 @@
 package edu.school21.chat.models;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 public class Message {
-    private Integer id;
+    private Long id;
     private User author;
     private Chatroom room;
     private String text;
     private LocalDateTime date;
 
-    public Message(Integer id, User author, Chatroom room, String text, LocalDateTime date) {
+    public Message(Long id, User author, Chatroom room, String text, LocalDateTime date) {
         this.id = id;
         this.author = author;
         this.room = room;
@@ -20,13 +21,13 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message{" +
+        return "Message: {\n" +
                 "id=" + id +
-                ", author=" + author +
-                ", room=" + room +
-                ", text='" + text + '\'' +
-                ", date=" + date +
-                '}';
+                ",\nauthor=" + author +
+                ",\nroom=" + room +
+                ",\ntext='" + text + '\'' +
+                ",\ndate=" + date +
+                "\n}";
     }
 
     @Override
@@ -42,7 +43,7 @@ public class Message {
         return Objects.hash(id, author, room, text, date);
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -62,7 +63,7 @@ public class Message {
         this.date = date;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

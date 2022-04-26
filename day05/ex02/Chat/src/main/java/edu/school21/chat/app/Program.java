@@ -5,7 +5,10 @@ import edu.school21.chat.repositories.MessagesRepository;
 import edu.school21.chat.repositories.MessagesRepositoryJdbcImpl;
 
 import java.sql.SQLException;
-import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+import edu.school21.chat.models.*;
 
 public class Program {
     public static void main(String[] args) throws SQLException {
@@ -16,9 +19,14 @@ public class Program {
 
         MessagesRepository mr = new MessagesRepositoryJdbcImpl(ds);
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter a message ID");
-        System.out.print("-> ");
-        System.out.println(mr.findById(scanner.nextLong()).get());
+        User author = new User(1L, "qwerty", "123456", new ArrayList(), new ArrayList());
+        Chatroom room = new Chatroom(1L, "chat1", author, new ArrayList());
+
+        Message msg = new Message(null, author, room, "asdscxzx", LocalDateTime.now());
+
+        mr.save(msg);
+
+        System.out.println(msg.getId());
+        ds.close();
     }
 }

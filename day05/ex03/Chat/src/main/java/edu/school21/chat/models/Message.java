@@ -1,7 +1,6 @@
 package edu.school21.chat.models;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Objects;
 
 public class Message {
@@ -21,13 +20,13 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message: {\n" +
+        return "Message{" +
                 "id=" + id +
-                ",\nauthor=" + author +
-                ",\nroom=" + room +
-                ",\ntext='" + text + '\'' +
-                ",\ndate=" + date +
-                "\n}";
+                ", author=" + author +
+                ", room=" + room +
+                ", text='" + text + '\'' +
+                ", date=" + date +
+                '}';
     }
 
     @Override

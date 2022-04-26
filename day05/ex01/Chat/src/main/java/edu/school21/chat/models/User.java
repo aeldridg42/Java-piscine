@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class User {
-    private Integer id;
+    private Long id;
     private String login;
     private String password;
     List<Chatroom> rooms;
     List<Chatroom> socializedRooms;
 
-    public User(Integer id, String login, String password, List<Chatroom> rooms, List<Chatroom> socializedRooms) {
+    public User(Long id, String login, String password, List<Chatroom> rooms, List<Chatroom> socializedRooms) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -40,7 +40,7 @@ public class User {
     @Override
     public int hashCode() { return Objects.hash(id, login, password, rooms, socializedRooms); }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -60,7 +60,7 @@ public class User {
         this.socializedRooms = socializedRooms;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

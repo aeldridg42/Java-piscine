@@ -16,10 +16,10 @@ CREATE TABLE IF NOT EXISTS chat.room (
 
 CREATE TABLE IF NOT EXISTS chat.messages (
        id          SERIAL PRIMARY KEY,
-       room_id     BIGINT NOT NULL REFERENCES chat.room(id),
-       sender      BIGINT NOT NULL REFERENCES chat.users(id),
-       message     VARCHAR(100) NOT NULL ,
-       time        TIMESTAMP NOT NULL DEFAULT NOW()
+       room_id     BIGINT REFERENCES chat.room(id),
+       sender      BIGINT REFERENCES chat.users(id),
+       message     VARCHAR(100) ,
+       time        TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS Chat.users_in_rooms (
